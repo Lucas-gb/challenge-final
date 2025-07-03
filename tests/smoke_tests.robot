@@ -1,5 +1,6 @@
 *** Settings ***
 Resource    ../resources/auth_keywords.resource
+Resource    ../resources/env.resource
 
 *** Test Cases ***
 CT-SMOKE-01: Admin Login com Sucesso
@@ -7,8 +8,8 @@ CT-SMOKE-01: Admin Login com Sucesso
     [Tags]    Smoke    Authentication
 
     ${token}=    Fazer Login e Obter Token
-    ...    email=admin_teste3876@dominio.com
-    ...    password=senhaAdmin3876
+    ...    email=${ADMIN_USER_EMAIL}
+    ...    password=${ADMIN_USER_PASS}
 
     Log To Console    \nToken de Admin Obtido: ${token}
     Should Not Be Empty    ${token}    msg=O token retornado estava vazio.

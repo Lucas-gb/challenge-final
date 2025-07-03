@@ -1,13 +1,7 @@
 *** Settings ***
-Library    RequestsLibrary
-Library    Collections
-
-*** Variables ***
-# URL oficial do challenge (comentada por enquanto)
-# ${BASE_URL}    https://api-cinema-challenge.onrender.com/api/v1
-
-# URL local para desenvolvimento da automação
-${BASE_URL}    http://localhost:5000/api/v1
+Library     RequestsLibrary
+Library     Collections
+Resource    env.resource
 
 *** Keywords ***
 Fazer Login e Obter Token
