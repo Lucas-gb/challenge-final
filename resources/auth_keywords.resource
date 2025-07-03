@@ -3,7 +3,11 @@ Library    RequestsLibrary
 Library    Collections
 
 *** Variables ***
-${BASE_URL}    https://api-cinema-challenge.onrender.com
+# URL oficial do challenge (comentada por enquanto)
+# ${BASE_URL}    https://api-cinema-challenge.onrender.com/api/v1
+
+# URL local para desenvolvimento da automação
+${BASE_URL}    http://localhost:5000/api/v1
 
 *** Keywords ***
 Fazer Login e Obter Token
@@ -19,7 +23,9 @@ Fazer Login e Obter Token
     ...    url=/auth/login
     ...    json=${body}
     ...    expected_status=200
-
-    ${token}=    Get From Dictionary    ${response.json()}    token
     
-    [Return]    ${token}
+    
+    ${data}=     Get From Dictionary    ${response.json()}    data
+    ${token}=    Get From Dictionary    ${data}               token
+    
+    RETURN    ${token}
