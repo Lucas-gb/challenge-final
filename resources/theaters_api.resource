@@ -20,11 +20,13 @@ Criar Sala na API
     ...    name=${nome_da_sala}
     ...    capacity=${capacidade_int}
     ...    type=IMAX
+    
+    Log    Corpo enviado: ${body}
 
-    # Usando a sessão de login para manter o contexto
+    # Fazendo a requisição direta
     ${response}=    POST On Session
     ...    alias=auth_session
-    ...    url=/theaters
+    ...    url=${BASE_URL}/theaters
     ...    json=${body}
     ...    headers=${headers}
     ...    expected_status=201
