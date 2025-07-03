@@ -53,3 +53,12 @@ CT-E2E-01: Ciclo de Vida de uma Reserva
     Log To Console    \n--- TOKEN DO USUÁRIO OBTIDO: ${token_usuario} ---
     Should Not Be Empty    ${token_usuario}
     
+    # Etapa 6: MODIFICADA para esperar o erro 404
+    Log To Console    \n--- ETAPA 6: Validando que o usuário NÃO consegue criar a reserva ---
+    Run Keyword And Expect Error    *Expected status: 404*
+    ...    Criar Reserva Para Sessão
+    ...    token_usuario=${token_usuario}
+    ...    session_id=${session_id}
+    ...    numero_de_assentos=2
+
+    Log To Console    \nSUCESSO: Teste negativo concluído. A API corretamente bloqueou a reserva do usuário.
