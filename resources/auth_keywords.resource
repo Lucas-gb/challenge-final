@@ -23,3 +23,20 @@ Fazer Login e Obter Token
     ${token}=    Get From Dictionary    ${data}               token
     
     RETURN    ${token}
+
+Obter Token de Usuário Apenas
+    [Documentation]    Faz um POST simples para obter o token de um usuário, sem usar ou alterar sessões existentes.
+    [Arguments]    ${email}    ${password}
+
+    ${body}=      Create Dictionary    email=${email}    password=${password}
+    ${headers}=   Create Dictionary    Content-Type=application/json
+
+    ${response}=  POST
+    ...    url=${BASE_URL}/auth/login
+    ...    json=${body}
+    ...    headers=${headers}
+    ...    expected_status=200
+
+    ${data}=    Get From Dictionary    ${response.json()}    data
+    ${token}=   Get From Dictionary    ${data}    token
+    RETURN      ${token}
