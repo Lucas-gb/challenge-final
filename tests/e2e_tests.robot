@@ -4,7 +4,7 @@ Resource    ../resources/auth_keywords.resource
 Resource    ../resources/movies_api.resource
 Resource    ../resources/theaters_api.resource
 Resource    ../resources/env.resource
-#Resource    ../resources/sessions_api.resource
+Resource    ../resources/sessions_api.resource
 
 *** Test Cases ***
 CT-E2E-01: Ciclo de Vida de uma Reserva
@@ -33,5 +33,16 @@ CT-E2E-01: Ciclo de Vida de uma Reserva
 
     Log To Console    Sala criada com ID: ${theater_id}
     Should Not Be Empty    ${theater_id}
+
+    # Etapa 4: Admin cria a sessão que une o filme e a sala
+    ${session_id}=    Criar Sessão na API
+    ...    token_admin=${token_admin}
+    ...    movie_id=${movie_id}
+    ...    theater_id=${theater_id}
+
+    Log To Console    \nFilme criado com ID: ${movie_id}
+    Log To Console    Sala criada com ID: ${theater_id}
+    Log To Console    Sessão criada com ID: ${session_id}
+    Should Not Be Empty    ${session_id}
 
     
