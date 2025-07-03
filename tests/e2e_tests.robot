@@ -45,13 +45,11 @@ CT-E2E-01: Ciclo de Vida de uma Reserva
     Log To Console    Sessão criada com ID: ${session_id}
     Should Not Be Empty    ${session_id}
 
-    # Etapa 5: Usuário Comum faz o login
-    ${token_usuario}=    Fazer Login e Obter Token
+    # Etapa 5: Usuário Comum faz o login USANDO A NOVA KEYWORD
+    ${token_usuario}=    Obter Token de Usuário Apenas  # <- Mude o nome da keyword aqui
     ...    email=${USER_EMAIL}
     ...    password=${USER_PASS}
 
-    Log To Console    \n--- MUDANÇA DE CONTEXTO: USUÁRIO COMUM ---
-    Log To Console    Token do Usuário Comum: ${token_usuario}
+    Log To Console    \n--- TOKEN DO USUÁRIO OBTIDO: ${token_usuario} ---
     Should Not Be Empty    ${token_usuario}
-
     
