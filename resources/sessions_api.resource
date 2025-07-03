@@ -39,3 +39,25 @@ Criar Sessão na API
     ${session_id}=      Get From Dictionary    ${session_data}      _id
 
     RETURN    ${session_id}
+
+Criar Reserva Para Sessão
+    [Documentation]    Cria uma reserva para uma sessão específica, usando o token do usuário.
+    [Arguments]    ${token_usuario}    ${session_id}    ${numero_de_assentos}
+
+    ${headers}=      Create Dictionary
+    ...    Authorization=Bearer ${token_usuario}
+    ...    Content-Type=application/json
+
+    ${body}=         Create Dictionary
+    ...    sessionId=${session_id}
+    ...    seats=${numero_de_assentos}
+
+    ${response}=     POST
+    ...    url=${BASE_URL}/reservations
+    ...    json=${body}
+    ...    headers=${headers}
+    ...    expected_status=201  # Esperamos o status 201 Created
+
+    ${dados_da_reserva}=    Get From Dictionary    ${response.json()}    data
+    
+    RETURN    ${dados_da_reserva}
