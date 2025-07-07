@@ -34,3 +34,18 @@ Criar Filme na API
     ${movie_id}=      Get From Dictionary    ${movie_data}         _id
 
     RETURN    ${movie_id}
+
+Buscar Filme Por ID na API
+    [Documentation]    Busca um filme específico pelo seu ID.
+    [Arguments]    ${token_admin}    ${movie_id}
+
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token_admin}
+
+    ${response}=    GET On Session
+    ...    alias=auth_session
+    ...    url=/movies/${movie_id}
+    ...    headers=${headers}
+    ...    expected_status=200
+
+    ${movie_data}=    Get From Dictionary    ${response.json()}    data
+    RETURN    ${movie_data}
