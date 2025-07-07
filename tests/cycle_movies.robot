@@ -21,4 +21,15 @@ CT-E2E-02 Ciclo de Gestão de um Filme (Admin)
     ...    email=${ADMIN_USER_EMAIL}
     ...    password=${ADMIN_USER_PASS}
     
-    
+    # Etapa 2: Admin cria um novo Filme e guarda o id
+    ${titulo_filme}=    Catenate    SEPARATOR=    Vingadores - Edição Robô -     ${TEST_NAME}
+    ${movie_id}=    Criar Filme na API
+    ...    token_admin=${token_admin}
+    ...    titulo_filme=${titulo_filme}
+    Should Not Be Empty    ${movie_id}
+
+    # Etapa 3: Busca o filme pelo id e valida os dados
+    ${filme_buscado}=    Buscar Filme Por ID na API
+    ...    token_admin=${token_admin}
+    ...    movie_id=${movie_id}
+    Should Be Equal As Strings    ${filme_buscado['title']}    ${titulo_filme}
